@@ -101,7 +101,7 @@ public:
 		do {
 			display_board();
 			player = (player % 2) ? 1 : 2;
-			cout << player << "의 놓을 위치를 입력하시오 : ";
+			cout << "Player "<< player << " 의 놓을 위치를 입력하시오 : ";
 			cin >> choice;
 			move = (player == 1) ? unit1 : unit2;
 			playerPosition(move, choice);
