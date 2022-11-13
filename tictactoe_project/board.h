@@ -11,7 +11,7 @@ class Board {
 	int choice; // 놓을 위치 
 	char move; //말을 놓을 때 사용하는 변수
 	char unit1, unit2; //플레이어 1과 플레이어 2의 말
-	char result = 'p'; //결과값을 담는 변수. 기본값 p는 게임의 승부가 나기 전 상태를 의미.
+	char result = 'p'; //게임의 결과값을 담는 변수. 기본값 p는 게임의 승부가 나기 전 상태를 의미.
 
 public:
 	void init() {
