@@ -46,62 +46,46 @@ public:
 	}
 	char resultGame() {
 		//결과값 반환
-		int check1 = 0, check2 = 0; //인접 칸이 같을 때마다 1 증가하여 변수에 담음.
 		//가로 세로 빙고 여부 체크
 		for(int i=0; i<3; i++) {
-
-			for (int j = 0; j < 2; j++) {
-				if (board[i][j] == board[i][j + 1]) {
-					if (board[i][j] == unit1) {
-						check1++;
-					}
-					else {
-						check2++;
-					}
+			if (board[i][0] == board[i][1] && board[i][1] == board[i][2]) {
+				if (board[i][0] == unit1) {
+					result = unit1;
 				}
-				else if (board[j][i] == board[j + 1][i]) {
-					if (board[i][j] == unit1) {
-						check1++;
-					}
-					else {
-						check2++;
-					}
+				else {
+					result = unit2;
+				}
+			}
+
+			if (board[0][i] == board[1][i] && board[1][i] == board[2][i]) {
+				if (board[0][i] == unit1) {
+					result = unit1;
+				}
+				else {
+					result = unit2;
 				}
 			}
 		}
 
 		//대각선 빙고 체크
-		for (int k=0; k<2; k++) {
-			if (board[k][k] == board[k + 1][k + 1]) {
-				if (board[k][k] == unit1) {
-					check1++;
-				}
-				else {
-					check2++;
-				}
+		if (board[0][0] == board[1][1] && board[1][1] == board[2][2]) {
+			if (board[0][0] == unit1) {
+				result = unit1;
 			}
 			else {
-				for (int m = 2; m > 0; m--) {
-					if (board[k][m] == board[k + 1][m - 1]) {
-						if (board[k][m] == unit1) {
-							check1++;
-						}
-						else {
-							check2++;
-						}
-					}
-				}
+				result = unit2;
 			}
 		}
-
-		//
-		if (check1 == 2) {
-			result = unit1;
+		else if (board[0][2] == board[1][1] && board[1][1] == board[2][0]) {
+			if (board[0][0] == unit1) {
+				result = unit1;
+			}
+			else {
+				result = unit2;
+			}
 		}
-		else if (check2 == 2) {
-			result = unit2;
-		} 
-		else if(board[0][0] != '1' && board[0][1] != '2' && board[0][2] != '3' && board[1][0] != '4'
+		
+		if(board[0][0] != '1' && board[0][1] != '2' && board[0][2] != '3' && board[1][0] != '4'
 			&& board[1][1] != '5' && board[1][2] != '6' && board[2][0] != '7' && board[2][1] != '8'
 			&& board[2][2] != '9') {
 			result = '\0';
