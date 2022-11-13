@@ -132,7 +132,7 @@ public:
 
 	}
 
-	void printResult(char& rs) {
+	void printResult(char &rs) {
 		display_board();
 		if (rs == unit1) {
 			cout << "Player 1이 승리하였습니다." << endl;
