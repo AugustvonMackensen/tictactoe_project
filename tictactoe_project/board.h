@@ -132,8 +132,7 @@ public:
 				//놓을 위치의 숫자를 잘못 입력한 경우(1~9 사이 숫자를 입력하지 않은 경우)
 				cout << "잘못 움직이셨습니다." << endl;
 				player--;
-				cin.ignore(); //입력 버퍼를 비움
-				cin.get();
+				cin.ignore(); //입력 버퍼를 비움(undo 기능)
 			}
 			result = resultGame();
 			if (result != 'p') {
@@ -145,8 +144,6 @@ public:
 
 		display_board();
 		cout << result << endl;
-		cin.ignore();
-		cin.get();
 	}
 };
 #endif
