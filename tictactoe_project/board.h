@@ -44,7 +44,7 @@ public:
 		cout << "		|		|		" << endl;
 		cout << "	" << board[2][0] << "	|	" << board[2][1] << "	|	" << board[2][2] << endl;
 	}
-	char resultGame() {
+	char gameOver() {
 		//결과값 반환
 		//가로 세로 빙고 여부 체크
 		for(int i=0; i<3; i++) {
@@ -101,49 +101,48 @@ public:
 			cout << player << "의 놓을 위치를 입력하시오 : ";
 			cin >> choice;
 			move = (player == 1) ? unit1 : unit2;
-			if (choice == 1 && board[0][0] == '1') {
-				board[0][0] = move;
-			}
-			else if (choice == 2 && board[0][1] == '2') {
-				board[0][1] = move;
-			}
-			else if (choice == 3 && board[0][2] == '3') {
-				board[0][2] = move;
-			}
-			else if (choice == 4 && board[1][0] == '4') {
-				board[1][0] = move;
-			}
-			else if (choice == 5 && board[1][1] == '5') {
-				board[1][1] = move;
-			}
-			else if (choice == 6 && board[1][2] == '6') {
-				board[1][2] = move;
-			}
-			else if (choice == 7 && board[2][0] == '7') {
-				board[2][0] = move;
-			}
-			else if (choice == 8 && board[2][1] == '8') {
-				board[2][1] = move;
-			}
-			else if (choice == 9 && board[2][2] == '9') {
-				board[2][2] = move;
-			}
-			else {
-				//놓을 위치의 숫자를 잘못 입력한 경우(1~9 사이 숫자를 입력하지 않은 경우)
-				cout << "잘못 움직이셨습니다." << endl;
-				player--;
-				cin.ignore(); //입력 버퍼를 비움(undo 기능)
-			}
-			result = resultGame();
+			playerPosition(move, choice);
+			
+			result = gameOver();
 			if (result != 'p') {
 				//게임의 승부가 났으면 반복문 빠져나옴.
 				break;
 			}
 			player++;
 		} while (true);
+		printResult(result);
+	}
 
+	void playerPosition(char &mv, int &ps) {
+		//입력받은 위치의 숫자에서 1을 뺀 값을 3으로 나누었을 때에 대한
+		//몫은 행, 나머지는 열 인덱스로 처리
+		int row = (ps-1) / 3;
+		int col = (ps-1) % 3;
+		
+		if (ps < 1 || ps > 9 || board[row][col] != (ps + '0')) {
+			//놓을 위치의 숫자를 잘못 입력한 경우(1~9 사이 숫자를 입력하지 않은 경우)
+			//이미 놓여진 위치에 두는 행위 방지
+			cout << "잘못 움직이셨습니다." << endl;
+			player--;
+			cin.ignore(); //입력 버퍼를 비움(undo 기능)
+		}
+		else {
+			board[row][col] = mv;
+		}
+
+	}
+
+	void printResult(char& rs) {
 		display_board();
-		cout << result << endl;
+		if (rs == unit1) {
+			cout << "Player 1이 승리하였습니다." << endl;
+		}
+		else if (rs == unit2) {
+			cout << "Player 2가 승리하였습니다." << endl;
+		}
+		else if(rs == '\0') {
+			cout << "비겼습니다." << endl;
+		}
 	}
 };
 #endif
